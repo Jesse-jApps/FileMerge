@@ -35,38 +35,46 @@ class MergeCommand(object):
 
 		gitManager = GitWrapper(repo)
 
-		# Copy original
+		# Init original
 		if not os.path.isdir(originalVersion):
 			os.makedirs(originalVersion)
 			gitManager.initDir(originalVersion)
-		shutil.copy(original, originalVersion)
 
-		# Copy also origin first to new
+		# init new
 		if not os.path.isdir(newVersion):
 			os.makedirs(newVersion)
 			gitManager.initDir(newVersion)
-		shutil.copy(new, newVersion)
 
 
+		############ Start Logic ################
 
+		# Copy original version inside
+		shutil.copy(original, originalVersion)
 
 		# Add new to repo
-		print "Push new"
-		gitManager.pushFile(gitNewFile)
-
-		# Commit original file
-		print "Commit original"
-		gitManager.commitFile(gitOriginalFile)
-
-		# Pull original for newVersion her might come a merging conflict
-		print "Pull in original"
-		gitManager.mergeTheirs(originalVersion)
-
-		# Push merged Version
-		print "push original"
+		print "Push original"
 		gitManager.pushFile(gitOriginalFile)
 
+
+		# Copy new version inside
+		shutil.copy(new, newVersion)
+
+		# Commit new file
+		print "Commit new"
+		gitManager.commitFile(gitNewFile)
+
+		# Pull 
+		print "Pull in new"
 		gitManager.pull(newVersion)
+		print "MERGING DONE"
+
+		# Push the merged one
+		print "Pushing new"
+		gitManager.pushFile(gitNewFile)
+
+		# Pull in original
+		print "Pull in original"
+		gitManager.pull(originalVersion)
 
 
 
@@ -74,8 +82,8 @@ class MergeCommand(object):
 
 
 		# Copy Merged version to very originals
-		shutil.copy(gitNewFile, original)
-		shutil.copy(gitNewFile, new)
+		shutil.copy(gitOriginalFile, original)
+		#shutil.copy(gitNewFile, new)
 
 
 

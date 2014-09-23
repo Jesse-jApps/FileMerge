@@ -16,7 +16,6 @@ class GitWrapper(object):
 			self._runGitCommand(['init'], dirPath)
 			# Add remote
 			self._runGitCommand(['remote', 'add', 'origin', self.repo], dirPath)
-			#self.pull(dirPath)
 		else:
 			print "Is already initialized"
 

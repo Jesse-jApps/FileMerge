@@ -13,8 +13,8 @@ def main():
 	basePath = os.path.dirname(os.path.realpath(__file__))
 	testfolder = os.path.join(basePath, 'testresources/')
 
-	original = os.path.join(testfolder, 'original.xml')
-	generated = os.path.join(testfolder, 'generated.xml')
+	original = os.path.join(testfolder, 'original/data.xml')
+	generated = os.path.join(testfolder, 'new/data.xml')
 
 	projectPath = os.path.join(testfolder, 'project/')
 
